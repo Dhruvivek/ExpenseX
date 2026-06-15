@@ -1,4 +1,4 @@
-import Expense from "../models/expense.modles.js";
+import Expense from "../models/expense.models.js";
 import mongoose from "mongoose";
 export const createExpense = async (req, res) => {
     try {
@@ -22,6 +22,9 @@ export const createExpense = async (req, res) => {
     }
     catch (error) {
         console.error(error);
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: error.message });
+        }
         res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -92,6 +95,9 @@ export const updateExpense = async (req, res) => {
     }
     catch (error) {
         console.error(error);
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: error.message });
+        }
         res.status(500).json({ messaage: "Internal server error" });
     }
 }
