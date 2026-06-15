@@ -18,10 +18,10 @@ export const login= async(req,res) =>{
         }
 
         const token = jwt.sign({userId: user._id},process.env.JWT_SECRET,{expiresIn: '1d'});
-        res.status(201).json({token});
+        res.status(200).json({token});
     }
     catch(error){
         console.error(error);
-        res.status(500).json({message: "Internet server error"});
+        res.status(500).json({message: "Internal server error"});
     }
 }
